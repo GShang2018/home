@@ -664,17 +664,39 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
                   </h4>
                   <h2 class="mb-5">
 				  
-<script language="JavaScript">
-<!--
-var d1 = new Date();
-var d2 = new Date();
-d2.setMonth(0);
-d2.setDate(1);
-var rq = d1-d2;
-var s1 = Math.ceil(rq/(24*60*60*1000));//第多少天
-var s2 = Math.ceil(s1/7)-7;//第多少周
-document.write("第"+s2+"教学周");//周日做为下周的开始计算
-//-->
+<script>
+var start = ["2019-02-25","2019-09-02","2020-02-10","2020-08-31","2021-02-22","2021-08-30","2022-02-21","2022-08-22","2023-02-06"];
+var  end  = ["2019-07-12","2020-01-10","2020-07-03","2021-01-22","2021-07-02","2022-01-21","2022-07-08","2023-01-06","2023-06-23"];
+function between(time1,time2){
+    var time = Date.parse( new Date());
+    var date1 = Date.parse(new Date(time1.replace(/-/g, '/')));
+    var date2 = Date.parse(new Date(time2.replace(/-/g, '/')));
+    if (date1<time&&date2>time) {
+        return true;
+    };
+    return false;
+}
+function day(s1)
+	{
+s1 = new Date(s1.replace(/-/g, "/"));
+s2 = new Date();//当前日期
+var days = s2.getTime() - s1.getTime();
+var time = parseInt(days / (1000 * 60 * 60 * 24));
+return day=Math.ceil(time/7);
+	}
+
+for (var i=0;i<start.length;i++)
+{
+if(between(start[i],end[i]))
+{
+  document.write("第" + day(start[i]) + "教学周");
+  break;  
+}
+}
+if(i==start.length)
+{
+document.write("现在是假期哦~");
+}
 </script>
 </h2>
                   <h6 class="card-text">
