@@ -1,0 +1,401 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>LeNet-5</title>
+<style>
+ * {
+ padding: 0;
+ margin: 0;
+        }
+ body {
+position: absolute;
+left: 0;
+right: 0;
+top: 0;
+bottom: 0;
+display: flex;
+align-items: center; 
+justify-content: center;
+        }
+.content{
+ margin: auto;
+}
+
+</style>
+</head>
+<body>
+<div class="content">
+  <svg xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" width="1133" height="804" viewBox="0 0 1133 804" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <style type="text/css">
+<![CDATA[
+.st1 {fill:#000000;font-family:Mistral;font-size:72pt}
+.st2 {fill:#000000;font-family:微软雅黑;font-size:8pt}
+]]>
+</style>
+    <defs/>
+    <g transform="translate(5,5)" id="page1">
+      <rect y="0" width="1123"  height="794" fill="#ffffff" x="0"/>
+      <g transform="translate(68.71,243)">
+        <g transform="translate(-0,104.86)">
+          <path d="M0,0L120.9,0L120.9,120.9L0,120.9L0,0z" fill="#afafaf" id="shape1"/>
+          <g transform="translate(22.47,2.47)" id="shape2">
+            <text class="st1">
+              <tspan y="84.5" x="17">8</tspan>
+            </text>
+          </g>
+        </g>
+        <g transform="translate(154.47,66.98)">
+          <g transform="translate(-0,-0)">
+            <path d="M0,0L105.8,0L105.8,105.8L0,105.8L0,0z" fill="#c2c2c2" id="shape3"/>
+          </g>
+          <g transform="translate(11,11.83)">
+            <path d="M0,0L105.8,0L105.8,105.8L0,105.8L0,0z" fill="#7e7e7e" id="shape4"/>
+          </g>
+          <g transform="translate(21.41,20.17)">
+            <path d="M0,0L105.8,0L105.8,105.8L0,105.8L0,0z" fill="#c2c2c2" id="shape5"/>
+          </g>
+          <g transform="translate(32.41,32)">
+            <path d="M0,0L105.8,0L105.8,105.8L0,105.8L0,0z" fill="#7e7e7e" id="shape6"/>
+          </g>
+          <g transform="translate(43.41,41.17)">
+            <path d="M0,0L105.8,0L105.8,105.8L0,105.8L0,0z" fill="#c2c2c2" id="shape7"/>
+          </g>
+          <g transform="translate(54.41,53)">
+            <path d="M0,0L105.8,0L105.8,105.8L0,105.8L0,0z" fill="#7e7e7e" id="shape8"/>
+          </g>
+        </g>
+        <g transform="translate(349.56,114.98)">
+          <g transform="translate(-1,0)">
+            <path d="M0,0L52.9,0L52.9,52.9L0,52.9L0,0z" fill="#c2c2c2" id="shape9"/>
+          </g>
+          <g transform="translate(7,7.83)">
+            <path d="M0,0L52.9,0L52.9,52.9L0,52.9L0,0z" fill="#7e7e7e" id="shape10"/>
+          </g>
+          <g transform="translate(13.37,15.63)">
+            <path d="M0,0L52.9,0L52.9,52.9L0,52.9L0,0z" fill="#c2c2c2" id="shape11"/>
+          </g>
+          <g transform="translate(20.37,23.46)">
+            <path d="M0,0L52.9,0L52.9,52.9L0,52.9L0,0z" fill="#7e7e7e" id="shape12"/>
+          </g>
+          <g transform="translate(25.91,30.28)">
+            <path d="M0,0L52.9,0L52.9,52.9L0,52.9L0,0z" transform="translate(1,2)" fill="#c2c2c2" id="shape13"/>
+          </g>
+          <g transform="translate(34.91,41.11)">
+            <path d="M0,0L52.9,0L52.9,52.9L0,52.9L0,0z" fill="#7e7e7e" id="shape14"/>
+          </g>
+        </g>
+        <g transform="translate(431.42,84.77)">
+          <g transform="translate(0,-0)">
+            <g transform="translate(-1,0)">
+              <g transform="translate(0.29,-1.43)">
+                <path d="M0,0L37.8,0L37.8,37.8L0,37.8L0,0z" transform="translate(0.71,1.43)" fill="#c2c2c2" id="shape15"/>
+              </g>
+              <g transform="translate(7.23,6.91)">
+                <path d="M0,0L37.8,0L37.8,37.8L0,37.8L0,0z" fill="#7e7e7e" id="shape16"/>
+              </g>
+            </g>
+            <g transform="translate(12,13)">
+              <g transform="translate(-0.71,-1.43)">
+                <path d="M0,0L37.8,0L37.8,37.8L0,37.8L0,0z" transform="translate(0.71,1.43)" fill="#c2c2c2" id="shape17"/>
+              </g>
+              <g transform="translate(7.23,6.91)">
+                <path d="M0,0L37.8,0L37.8,37.8L0,37.8L0,0z" fill="#7e7e7e" id="shape18"/>
+              </g>
+            </g>
+            <g transform="translate(26,26)">
+              <g transform="translate(-0.71,-1.43)">
+                <path d="M0,0L37.8,0L37.8,37.8L0,37.8L0,0z" transform="translate(0.71,1.43)" fill="#c2c2c2" id="shape19"/>
+              </g>
+              <g transform="translate(7.23,6.91)">
+                <path d="M0,0L37.8,0L37.8,37.8L0,37.8L0,0z" fill="#7e7e7e" id="shape20"/>
+              </g>
+            </g>
+            <g transform="translate(40,40)">
+              <g transform="translate(-0.71,-1.43)">
+                <path d="M0,0L37.8,0L37.8,37.8L0,37.8L0,0z" transform="translate(0.71,1.43)" fill="#c2c2c2" id="shape21"/>
+              </g>
+              <g transform="translate(7.23,6.91)">
+                <path d="M0,0L37.8,0L37.8,37.8L0,37.8L0,0z" fill="#7e7e7e" id="shape22"/>
+              </g>
+            </g>
+          </g>
+          <g transform="translate(52.72,53.74)">
+            <g transform="translate(-1,0)">
+              <g transform="translate(0.29,-1.43)">
+                <path d="M0,0L37.8,0L37.8,37.8L0,37.8L0,0z" transform="translate(0.71,1.43)" fill="#c2c2c2" id="shape23"/>
+              </g>
+              <g transform="translate(7.23,6.91)">
+                <path d="M0,0L37.8,0L37.8,37.8L0,37.8L0,0z" fill="#7e7e7e" id="shape24"/>
+              </g>
+            </g>
+            <g transform="translate(12,13)">
+              <g transform="translate(-0.71,-1.43)">
+                <path d="M0,0L37.8,0L37.8,37.8L0,37.8L0,0z" transform="translate(0.71,1.43)" fill="#c2c2c2" id="shape25"/>
+              </g>
+              <g transform="translate(7.23,6.91)">
+                <path d="M0,0L37.8,0L37.8,37.8L0,37.8L0,0z" fill="#7e7e7e" id="shape26"/>
+              </g>
+            </g>
+            <g transform="translate(26,26)">
+              <g transform="translate(-0.71,-1.43)">
+                <path d="M0,0L37.8,0L37.8,37.8L0,37.8L0,0z" transform="translate(0.71,1.43)" fill="#c2c2c2" id="shape27"/>
+              </g>
+              <g transform="translate(7.23,6.91)">
+                <path d="M0,0L37.8,0L37.8,37.8L0,37.8L0,0z" fill="#7e7e7e" id="shape28"/>
+              </g>
+            </g>
+            <g transform="translate(40,40)">
+              <g transform="translate(-0.71,-1.43)">
+                <path d="M0,0L37.8,0L37.8,37.8L0,37.8L0,0z" transform="translate(0.71,1.43)" fill="#c2c2c2" id="shape29"/>
+              </g>
+              <g transform="translate(7.23,6.91)">
+                <path d="M0,0L37.8,0L37.8,37.8L0,37.8L0,0z" fill="#7e7e7e" id="shape30"/>
+              </g>
+            </g>
+          </g>
+        </g>
+        <g transform="translate(570.93,94)">
+          <g transform="translate(0,-0)">
+            <g transform="translate(-0,0)">
+              <g transform="translate(0,-0)">
+                <g transform="translate(-0.36,-0.71)">
+                  <path d="M0,0L18.9,0L18.9,18.9L0,18.9L0,0z" transform="translate(0.36,0.71)" fill="#c2c2c2" id="shape31"/>
+                </g>
+                <g transform="translate(5.19,6.29)">
+                  <path d="M0,0L18.9,0L18.9,18.9L0,18.9L0,0z" fill="#7e7e7e" id="shape32"/>
+                </g>
+              </g>
+              <g transform="translate(11,12)">
+                <g transform="translate(-0.36,-0.71)">
+                  <path d="M0,0L18.9,0L18.9,18.9L0,18.9L0,0z" transform="translate(0.36,0.71)" fill="#c2c2c2" id="shape33"/>
+                </g>
+                <g transform="translate(5.19,6.29)">
+                  <path d="M0,0L18.9,0L18.9,18.9L0,18.9L0,0z" fill="#7e7e7e" id="shape34"/>
+                </g>
+              </g>
+            </g>
+            <g transform="translate(22.09,24.14)">
+              <g>
+                <g transform="translate(-0.36,-0.71)">
+                  <path d="M0,0L18.9,0L18.9,18.9L0,18.9L0,0z" transform="translate(0.36,0.71)" fill="#c2c2c2" id="shape35"/>
+                </g>
+                <g transform="translate(5.19,6.29)">
+                  <path d="M0,0L18.9,0L18.9,18.9L0,18.9L0,0z" fill="#7e7e7e" id="shape36"/>
+                </g>
+              </g>
+              <g transform="translate(11,12)">
+                <g transform="translate(-0.36,-0.71)">
+                  <path d="M0,0L18.9,0L18.9,18.9L0,18.9L0,0z" transform="translate(0.36,0.71)" fill="#c2c2c2" id="shape37"/>
+                </g>
+                <g transform="translate(5.19,6.29)">
+                  <path d="M0,0L18.9,0L18.9,18.9L0,18.9L0,0z" fill="#7e7e7e" id="shape38"/>
+                </g>
+              </g>
+            </g>
+          </g>
+          <g transform="translate(43.91,48.82)">
+            <g>
+              <g>
+                <g transform="translate(-0.36,-0.71)">
+                  <path d="M0,0L18.9,0L18.9,18.9L0,18.9L0,0z" transform="translate(0.36,0.71)" fill="#c2c2c2" id="shape39"/>
+                </g>
+                <g transform="translate(5.19,6.29)">
+                  <path d="M0,0L18.9,0L18.9,18.9L0,18.9L0,0z" fill="#7e7e7e" id="shape40"/>
+                </g>
+              </g>
+              <g transform="translate(11,12)">
+                <g transform="translate(-0.36,-0.71)">
+                  <path d="M0,0L18.9,0L18.9,18.9L0,18.9L0,0z" transform="translate(0.36,0.71)" fill="#c2c2c2" id="shape41"/>
+                </g>
+                <g transform="translate(5.19,6.29)">
+                  <path d="M0,0L18.9,0L18.9,18.9L0,18.9L0,0z" fill="#7e7e7e" id="shape42"/>
+                </g>
+              </g>
+            </g>
+            <g transform="translate(22.09,24.14)">
+              <g>
+                <g transform="translate(-0.36,-0.71)">
+                  <path d="M0,0L18.9,0L18.9,18.9L0,18.9L0,0z" transform="translate(0.36,0.71)" fill="#c2c2c2" id="shape43"/>
+                </g>
+                <g transform="translate(5.19,6.29)">
+                  <path d="M0,0L18.9,0L18.9,18.9L0,18.9L0,0z" fill="#7e7e7e" id="shape44"/>
+                </g>
+              </g>
+              <g transform="translate(11,12)">
+                <g transform="translate(-0.36,-0.71)">
+                  <path d="M0,0L18.9,0L18.9,18.9L0,18.9L0,0z" transform="translate(0.36,0.71)" fill="#c2c2c2" id="shape45"/>
+                </g>
+                <g transform="translate(5.19,6.29)">
+                  <path d="M0,0L18.9,0L18.9,18.9L0,18.9L0,0z" fill="#7e7e7e" id="shape46"/>
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+        <path d="M0,0L8.3,0L53.5,53.2L45.2,53.4L0,0z" transform="translate(927,128.64)" fill="#868686" id="shape47"/>
+        <path d="M0,0L115.9,6.6" stroke="#454545" transform="translate(811.8,122)" fill="none" id="shape48" stroke-width="0.666667"/>
+        <path d="M0,3.5L104.4,0" stroke="#454545" transform="translate(868.35,182.08)" fill="none" id="shape49" stroke-width="0.666667"/>
+        <path d="M0,0L8.3,0L91,90.7L81.8,90.7L0,0z" transform="translate(677.47,96.46)" fill="#868686" id="shape50"/>
+        <path d="M0,0L8.3,0L64.9,63.6L56.5,64L0,0z" transform="translate(803.47,122)" fill="#868686" id="shape51"/>
+        <path d="M0,1.2L91.5,0" stroke="#454545" transform="translate(768.47,185.98)" fill="none" id="shape52" stroke-width="0.666667"/>
+        <path d="M0,0L117.7,25.5" stroke="#454545" transform="translate(685.8,96.46)" fill="none" id="shape53" stroke-width="0.666667"/>
+        <path d="M0,0L89,2.3" stroke="#454545" transform="translate(589.48,94.6)" fill="none" id="shape54" stroke-width="0.666667"/>
+        <path d="M0,16.5L88.1,0" stroke="#454545" transform="translate(671.92,187.17)" fill="none" id="shape55" stroke-width="0.666667"/>
+        <g transform="translate(-0,36)" id="shape56">
+          <text class="st2">
+            <tspan y="21" x="44">INPUT</tspan>
+            <tspan y="37" x="33">（输入层）</tspan>
+            <tspan y="53" x="45">32×32</tspan>
+          </text>
+        </g>
+        <g transform="translate(147.47,0)" id="shape57">
+          <text class="st2">
+            <tspan y="21" x="22">C1:feature maps</tspan>
+            <tspan y="37" x="31">（特征图层）</tspan>
+            <tspan y="53" x="40">6@28×28</tspan>
+          </text>
+        </g>
+        <g transform="translate(309.39,49)" id="shape58">
+          <text class="st2">
+            <tspan y="21" x="39">S2:f.maps</tspan>
+            <tspan y="37" x="31">（特征图层）</tspan>
+            <tspan y="53" x="40">6@14×14</tspan>
+          </text>
+        </g>
+        <g transform="translate(384.47,18)" id="shape59">
+          <text class="st2">
+            <tspan y="21" x="39">C3:f.maps</tspan>
+            <tspan y="37" x="31">（特征图层）</tspan>
+            <tspan y="53" x="37">16@10×10</tspan>
+          </text>
+        </g>
+        <g transform="translate(514.47,28.5)" id="shape60">
+          <text class="st2">
+            <tspan y="21" x="39">S4:f.maps</tspan>
+            <tspan y="37" x="31">（特征图层）</tspan>
+            <tspan y="53" x="43">16@5×5</tspan>
+          </text>
+        </g>
+        <g transform="translate(637.62,40.86)" id="shape61">
+          <text class="st2">
+            <tspan y="10.5" x="22">C5:layer</tspan>
+            <tspan y="26.5" x="15">（连接层）</tspan>
+            <tspan y="42.5" x="34">120</tspan>
+          </text>
+        </g>
+        <g transform="translate(764.47,65)" id="shape62">
+          <text class="st2">
+            <tspan y="10.5" x="23">F6:layer</tspan>
+            <tspan y="26.5" x="15">（连接层）</tspan>
+            <tspan y="42.5" x="37">84</tspan>
+          </text>
+        </g>
+        <g transform="translate(887.75,71.64)" id="shape63">
+          <text class="st2">
+            <tspan y="10.5" x="21">OUTPUT</tspan>
+            <tspan y="26.5" x="15">（输出层）</tspan>
+            <tspan y="42.5" x="37">10</tspan>
+          </text>
+        </g>
+        <g transform="translate(57.34,178.91)">
+          <path d="M0,0L18.9,0L18.9,18.9L0,18.9L0,0z" stroke="#303030" transform="translate(0.12,0)" fill="none" id="shape64" stroke-width="0.666667"/>
+          <path d="M0,0L213.3,18.2" stroke="#454545" transform="translate(19,0.09)" fill="none" id="shape65" stroke-width="0.666667"/>
+          <path d="M0,0L228.3,18.2" stroke="#454545" transform="translate(0.25,0.09)" fill="none" id="shape66" stroke-width="0.666667"/>
+          <path d="M0,0L228.5,3.2" stroke="#454545" transform="translate(0,18.84)" fill="none" id="shape67" stroke-width="0.666667"/>
+          <path d="M0,0L213.3,3.2" stroke="#454545" transform="translate(19,18.84)" fill="none" id="shape68" stroke-width="0.666667"/>
+          <path d="M0,0L3.8,0L3.8,3.8L0,3.8L0,0z" stroke="#303030" transform="translate(228.49,18.31)" fill="none" id="shape69" stroke-width="0.666667"/>
+        </g>
+        <g transform="translate(117.47,204)">
+          <g transform="translate(0,57)" id="shape70">
+            <text class="st2">
+              <tspan y="15.5" x="10">Convolutions</tspan>
+              <tspan y="31.5" x="12">（卷积操作）</tspan>
+            </text>
+          </g>
+          <path d="M0,0L47,0" stroke="#303030" transform="matrix(0,-1,1,0,43,47)" fill="none" id="shape71" stroke-width="0.666667"/>
+        </g>
+        <g transform="translate(294.61,204)">
+          <g transform="translate(0,57)" id="shape72">
+            <text class="st2">
+              <tspan y="15.5" x="13.3">Subsampling</tspan>
+              <tspan y="31.5" x="8.3">（降采样操作）</tspan>
+            </text>
+          </g>
+          <path d="M0,0L83,0" stroke="#303030" transform="matrix(0,-1,1,0,45.2,47)" fill="none" id="shape73" stroke-width="0.666667"/>
+        </g>
+        <g transform="translate(440.47,204)">
+          <g transform="translate(0,57)" id="shape74">
+            <text class="st2">
+              <tspan y="15.5" x="10">Convolutions</tspan>
+              <tspan y="31.5" x="12">（卷积操作）</tspan>
+            </text>
+          </g>
+          <path d="M0,0L40,0" stroke="#303030" transform="matrix(0,-1,1,0,43,47)" fill="none" id="shape75" stroke-width="0.666667"/>
+        </g>
+        <g transform="translate(230.71,137.87)">
+          <path d="M0,0L7.6,0L7.6,7.6L0,7.6L0,0z" stroke="#303030" transform="translate(0.05,0)" fill="none" id="shape76" stroke-width="0.666667"/>
+          <path d="M0,0L161.8,27.6" stroke="#454545" transform="translate(7.6,0.03)" fill="none" id="shape77" stroke-width="0.666667"/>
+          <path d="M0,0L165.6,27.6" stroke="#454545" transform="translate(0.1,0.03)" fill="none" id="shape78" stroke-width="0.666667"/>
+          <path d="M0,0L165.6,23.9" stroke="#454545" transform="translate(0,7.53)" fill="none" id="shape79" stroke-width="0.666667"/>
+          <path d="M0,0L161.8,23.9" stroke="#454545" transform="translate(7.6,7.53)" fill="none" id="shape80" stroke-width="0.666667"/>
+          <path d="M0,0L3.8,0L3.8,3.8L0,3.8L0,0z" stroke="#303030" transform="translate(165.64,27.65)" fill="none" id="shape81" stroke-width="0.666667"/>
+        </g>
+        <g transform="translate(406.2,183.91)">
+          <path d="M0,0L18.9,0L18.9,18.9L0,18.9L0,0z" stroke="#303030" transform="translate(0.12,0)" fill="none" id="shape82" stroke-width="0.666667"/>
+          <path d="M0,0L138,27.2" stroke="#454545" transform="translate(19,0.09)" fill="none" id="shape83" stroke-width="0.666667"/>
+          <path d="M0,0L153,27.2" stroke="#454545" transform="translate(0.25,0.09)" fill="none" id="shape84" stroke-width="0.666667"/>
+          <path d="M0,0L153.2,12.2" stroke="#454545" transform="translate(0,18.84)" fill="none" id="shape85" stroke-width="0.666667"/>
+          <path d="M0,0L138,12.2" stroke="#454545" transform="translate(19,18.84)" fill="none" id="shape86" stroke-width="0.666667"/>
+          <path d="M0,0L3.8,0L3.8,3.8L0,3.8L0,0z" stroke="#303030" transform="translate(153.27,27.31)" fill="none" id="shape87" stroke-width="0.666667"/>
+        </g>
+        <g transform="translate(570.93,204)">
+          <g transform="translate(0,57)" id="shape88">
+            <text class="st2">
+              <tspan y="15.5" x="13.3">Subsampling</tspan>
+              <tspan y="31.5" x="8.3">（降采样操作）</tspan>
+            </text>
+          </g>
+          <path d="M0,0L50,0" stroke="#303030" transform="matrix(0,-1,1,0,45.2,47)" fill="none" id="shape89" stroke-width="0.666667"/>
+        </g>
+        <g transform="translate(543.95,189)">
+          <path d="M0,0L7.6,0L7.6,7.6L0,7.6L0,0z" stroke="#303030" transform="translate(0.05,3.35)" fill="none" id="shape90" stroke-width="0.666667"/>
+          <path d="M0,0L111.9,-3.4" stroke="#454545" transform="translate(7.6,3.39)" fill="none" id="shape91" stroke-width="0.666667"/>
+          <path d="M0,0L115.7,-3.4" stroke="#454545" transform="translate(0.1,3.39)" fill="none" id="shape92" stroke-width="0.666667"/>
+          <path d="M0,0L115.7,-7.1" stroke="#454545" transform="translate(-0,10.89)" fill="none" id="shape93" stroke-width="0.666667"/>
+          <path d="M0,0L111.9,-7.1" stroke="#454545" transform="translate(7.6,10.89)" fill="none" id="shape94" stroke-width="0.666667"/>
+          <path d="M0,0L3.8,0L3.8,3.8L0,3.8L0,0z" stroke="#303030" transform="translate(115.75,0)" fill="none" id="shape95" stroke-width="0.666667"/>
+        </g>
+        <g transform="translate(671.92,204)">
+          <g transform="translate(0,57)" id="shape96">
+            <text class="st2">
+              <tspan y="15.5" x="11.3">Full connection</tspan>
+              <tspan y="31.5" x="13.3">（全连接操作）</tspan>
+            </text>
+          </g>
+          <path d="M0,0L50,0" stroke="#303030" transform="matrix(0,-1,1,0,50.1,47)" fill="none" id="shape97" stroke-width="0.666667"/>
+        </g>
+        <g transform="translate(779.59,204)">
+          <g transform="translate(0,57)" id="shape98">
+            <text class="st2">
+              <tspan y="15.5" x="11.3">Full connection</tspan>
+              <tspan y="31.5" x="13.3">（全连接操作）</tspan>
+            </text>
+          </g>
+          <path d="M0,0L59,0" stroke="#303030" transform="matrix(0,-1,1,0,50.1,47)" fill="none" id="shape99" stroke-width="0.666667"/>
+        </g>
+        <g transform="translate(878.37,204)">
+          <g transform="translate(0,57)" id="shape100">
+            <text class="st2">
+              <tspan y="15.5" x="6.1">Gaussian connection</tspan>
+              <tspan y="31.5" x="17.1">（高斯连接操作）</tspan>
+            </text>
+          </g>
+          <path d="M0,0L63,0" stroke="#303030" transform="matrix(0,-1,1,0,59,47)" fill="none" id="shape101" stroke-width="0.666667"/>
+        </g>
+      </g>
+    </g>
+  </svg>
+</div>
+</body>
+</html>
