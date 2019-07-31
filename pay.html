@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>万能收款码</title>
+		<script>
+			/*
+		以下内容请用专门的 Html 编辑器(如 notepad++)进行编辑，切勿直接用记事本编辑，否则可能出现中文乱码！
+		*/
+			var setting = {
+				/* 在以下【双引号】中粘贴QQ钱包收款链接 */
+				/*qqUrl: "https://i.qianbao.qq.com/wallet/sqrcode.htm?m=tenpay&a=1&u=1097437863&ac=B4C5BACD47FE6936D4B6DD29D866E1FC3AEA141B073F9DD94DE6404509CEE0FA&n=孤帆远影&f=wallet",*/
+
+				/* 在以下【双引号】中粘贴微信收款链接 */
+				wechatUrl: "https://wx.tenpay.com/f2f0DQboITEwPnw-7msLkGGZ64Mq9SJO4i4W",
+
+				/* 在以下【双引号】中粘贴支付宝收款链接 */
+				aliUrl: "https://qr.alipay.com/fkx00641jq1zpy1obzo0aca",
+
+				// 用于动态生成二维码的API，一般不需要修改。
+				qrcodeApi: "https://www.kuaizhan.com/common/encode-png?large=true&data="
+				/*
+				备用二维码api：
+				http://s.jiathis.com/qrcode.php?url=
+				https://www.kuaizhan.com/common/encode-png?large=true&data=
+				http://b.bshare.cn/barCode?site=weixin&url=
+				https://api.qrserver.com/v1/create-qr-code/?size=150x150&margin=10&data=
+				http://qr.topscan.com/api.php?text=
+				https://bshare.optimix.asia/barCode?site=weixin&url=
+				https://www.zhihu.com/qrcode?url=
+		    
+				本多合一收款码作者 @megnkun(https://mkblog.cn)，转载请注明！
+				Github： https://github.com/mengkunsoft/OneQRCode
+				*/
+			}
+		</script>
+		<style>
+			body {
+				height: 100%;
+				background-color: #32b16c;
+				margin: 0 auto;
+			}
+
+			#code-wechat {
+				background-color: #32b16c;
+			}
+
+			.pay-main {
+				background-color: #32b16c;
+				width: 100%;
+				height: auto;
+				position: absolute;
+
+			}
+
+			.paytip {
+				padding: 40px 30px;
+				margin: 0 auto;
+				text-align: center;
+				font-size: 80px;
+				color: #fff;
+			}
+
+			.qrcode-bg {
+				width: 60%;
+				background-color: #fff;
+				border-radius: 10px;
+				margin: 30px auto 90px;
+				padding: 20px 30px;
+			}
+
+			.qrcode-bg img {
+				width: 100%;
+				height: auto;
+			}
+
+			.pay-footer {
+				background-color: #32b16c;
+				width: 100%;
+				/*height:10%;*/
+				position: absolute;
+				background: #fff;
+				bottom: 0;
+				padding: 90px 0;
+				text-align: center;
+				font-size: 50px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="code-item" id="code-all">
+			<div class="pay-main">
+				<p class="paytip">扫 码 付 款</p>
+				<div class="qrcode-bg">
+					<img id="page-url" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==">
+					<img id="type-all" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==">
+				</div>
+			</div>
+			<div class="pay-footer">
+				扫描以上二维码向我付款
+			</div>
+		</div>
+
+		<div class="code-item" id="code-wechat">
+			<div class="pay-main">
+				<p class="paytip">扫 码 付 款</p>
+				<div class="qrcode-bg">
+					<img id="wechat-url" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==">
+					<img id="wechat-type" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==">
+				</div>
+			</div>
+			<div class="pay-footer">
+				长按以上二维码向我付款
+			</div>
+		</div>
+
+		<script>
+			if (!(/^http(s*):\/\//.test(location.href)) || /^http(s*):\/\/localhost/.test(location.href)) {
+				alert('不支持的支付类型！');
+				/* window.location.href='https://github.com/mengkunsoft/OneQRCode';*/
+			}
+
+			if (navigator.userAgent.match(/Alipay/i)) {
+				/* 支付宝 */
+				window.location.href = setting.aliUrl;
+			} else if (navigator.userAgent.match(/MicroMessenger\//i)) {
+				/* 微信 */
+				document.getElementById("wechat-url").src = setting.qrcodeApi + urlEncode(setting.wechatUrl);
+				document.getElementById("code-wechat").style.display = "block";
+				document.getElementById("type-wechat").src =
+					"https://www.kanjiantu.com/images/2019/07/31/wechat6456be4246c34031.png";
+			} else {
+				/* 其它，显示“万能码” */
+				document.getElementById("page-url").src = setting.qrcodeApi + urlEncode(window.location.href);
+				document.getElementById("code-all").style.display = "block";
+				document.getElementById("type-all").src = "https://www.kanjiantu.com/images/2019/07/31/payallfd91661b3b04787b.png";
+			}
+
+			/*****************************************
+			 * url编码函数
+			 * 输入参数：待编码的字符串
+			 * 输出参数：编码好的
+			 ****************************************/
+			function urlEncode(String) {
+				return encodeURIComponent(String).replace(/'/g, "%27").replace(/"/g, "%22");
+			}
+		</script>
+	</body>
+</html>
