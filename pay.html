@@ -93,7 +93,7 @@
 				<p class="paytip">扫 码 付 款</p>
 				<div class="qrcode-bg">
 					<img id="page-url" src="">
-					<img id="type-all" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==">
+					<img id="type-all" src="">
 				</div>
 			</div>
 			<div class="pay-footer">
@@ -105,8 +105,8 @@
 			<div class="pay-main">
 				<p class="paytip">扫 码 付 款</p>
 				<div class="qrcode-bg">
-					<img id="wechat-url" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==">
-					<img id="wechat-type" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==">
+					<img id="wechat-url" src="">
+					<img id="wechat-type" src="">
 				</div>
 			</div>
 			<div class="pay-footer">
@@ -117,8 +117,8 @@
 			<div class="pay-main">
 				<p class="paytip">扫 码 付 款</p>
 				<div class="qrcode-bg">
-					<img id="qq-url" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==">
-					<img id="qq-type" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==">
+					<img id="qq-url" src="">
+					<img id="qq-type" src="">
 				</div>
 			</div>
 			<div class="pay-footer">
@@ -138,18 +138,15 @@
 				/* 微信 */
 				document.getElementById("wechat-url").src = setting.qrcodeApi + urlEncode(setting.wechatUrl);
 				document.getElementById("code-wechat").style.display = "block";
-				document.getElementById("wechat-type").src =
-					"https://www.kanjiantu.com/images/2019/07/31/wechat6456be4246c34031.png";
+				document.getElementById("wechat-type").src = "https://www.kanjiantu.com/images/2019/07/31/wechat6456be4246c34031.png";
 			} else if (navigator.userAgent.match(/QQ\//i)) {
 				/* QQ */
 				document.getElementById("qq-url").src = setting.qrcodeApi + urlEncode(setting.qqUrl);
 				document.getElementById("code-qq").style.display = "block";
 					document.getElementById("qq-type").src ="http://www.tzr.me/imgs/2019/07/29475818fbed6566.png";
-					"https://www.kanjiantu.com/images/2019/07/31/wechat6456be4246c34031.png";
 			} else {
 				/* 其它，显示“万能码” */
-				document.getElementById("page-url").src =
-					"https://www.kanjiantu.com/images/2019/07/31/15645760068a07218e5b4f710b.png";
+				document.getElementById("page-url").src ="https://www.kanjiantu.com/images/2019/07/31/15645760068a07218e5b4f710b.png";
 				document.getElementById("code-all").style.display = "block";
 				document.getElementById("type-all").src = "http://www.tzr.me/imgs/2019/07/d7488279d856692e.png";
 			}
