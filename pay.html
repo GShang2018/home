@@ -41,21 +41,15 @@
 			}
 
 			#code-all {
-				height: 100%;
-				background-color: #32b16c;
-				display:none;
+				display: none;
 			}
 
 			#code-wechat {
-				height: 100%;
-				background-color: #32b16c;
-				display:none;
+				display: none;
 			}
 
 			#code-qq {
-				height: 100%;
-				background-color: #00aaef;
-				display:none;
+				display: none;
 			}
 
 			.paytip {
@@ -93,7 +87,7 @@
 		</style>
 	</head>
 	<body>
-		
+
 		<div class="code-item" id="code-all">
 			<p class="paytip">扫 码 付 款</p>
 			<div class="qrcode-bg">
@@ -115,7 +109,7 @@
 				长按以上二维码向我付款
 			</div>
 		</div>
-		
+
 		<div class="code-item" id="code-qq">
 			<p class="paytip">扫 码 付 款</p>
 			<div class="qrcode-bg">
@@ -126,7 +120,7 @@
 				长按以上二维码向我付款
 			</div>
 		</div>
-		
+
 		<script>
 			//if (!(/^http(s*):\/\//.test(location.href)) || /^http(s*):\/\/localhost/.test(location.href)) {
 			//alert('不支持的支付类型！');
@@ -142,12 +136,13 @@
 				document.getElementById("code-wechat").style.display = "block";
 				document.getElementById("wechat-type").src =
 					"https://www.kanjiantu.com/images/2019/07/31/wechat6456be4246c34031.png";
-
+				document.body.style.backgroundColor = "#32b16c";
 			} else if (navigator.userAgent.match(/QQ\//i)) {
 				/* QQ */
 				document.getElementById("qq-url").src = setting.qrcodeApi + urlEncode(setting.qqUrl);
 				document.getElementById("code-qq").style.display = "block";
 				document.getElementById("qq-type").src = "http://www.tzr.me/imgs/2019/07/29475818fbed6566.png";
+				document.body.style.backgroundColor = "#00aaef";
 
 			} else {
 				/* 其它，显示“万能码” */
@@ -155,7 +150,7 @@
 					"https://www.kanjiantu.com/images/2019/07/31/15645760068a07218e5b4f710b.png";
 				document.getElementById("code-all").style.display = "block";
 				document.getElementById("type-all").src = "http://www.tzr.me/imgs/2019/07/d7488279d856692e.png";
-
+				document.body.style.backgroundColor = "#32b16c";
 			}
 
 			/*****************************************
