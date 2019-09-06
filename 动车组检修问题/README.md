@@ -29,10 +29,30 @@
 
 <div align="center">
 
-| 工序类别             | a    | b    | c    |
-| -------------------- | ---- | ---- | ---- |
-| **车间数量（个）**   | 3    | 8    | 5    |
-| **耗费时间（小时）** | 1    | 2    | 1.5  |
+<table >
+<thead>
+<tr>
+<th>工序类别</th>
+<th>a</th>
+<th>b</th>
+<th>c</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>车间数量（个）</strong></td>
+<td>3</td>
+<td>8</td>
+<td>5</td>
+</tr>
+<tr>
+<td><strong>耗费时间（小时）</strong></td>
+<td>1</td>
+<td>2</td>
+<td>1.5</td>
+</tr>
+</tbody>
+</table>
 
 </div>
 
