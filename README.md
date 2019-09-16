@@ -1,262 +1,136 @@
-## 标题
+```java
+package com.controller;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import com.dao.UserMessageDao;
+import com.entity.UserAlive;
+import com.entity.UserCount;
+import com.entity.UserMessage;
+import com.huanxin.core.tool.HuanXinUtil;
+import com.service.UserMessageService;
+import com.util.DateUtils;
+import com.util.GetLocationByIpUtil;
+import com.util.JSonUtil;
+import com.util.RedisUtil;
+import com.util.TokenUtils;
+import redis.clients.jedis.Jedis;
+ 
+@Controller
+public class AutoLoginController {
+	private final int ERRORCODE=1;
+	private final int TRUECODE=0;
+	@Autowired
+	UserMessageService userMessageService;
+	@Autowired
+	UserMessageDao userMessageDao;
+	/**
+	 * @author 莫林
+	 * @param int user_id,String token
+	 * */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@RequestMapping("login/autoLogin/checkToken")
+	public  void checkToken(HttpServletRequest request,HttpServletResponse response){
+		response.setContentType("text/html;charset=utf-8");       //设置请求以及响应的内容类型以及编码方式
+		response.setCharacterEncoding("UTF-8");
+		String dwkToken = request.getParameter("dwkToken");
+		//对用户状态进行校验
+		@SuppressWarnings("rawtypes")
+		Map map = new HashMap();
+		@SuppressWarnings("rawtypes")
+		Map sendMap = new HashMap();
+		Jedis jedis = RedisUtil.getJedis();
+		String[] separate=TokenUtils.separate(dwkToken);
+		int userId = Integer.parseInt(separate[0]);
+		Integer state = userMessageService.selectStateByUserId(userId);
+		System.out.println(state);
+		if (state != null && state != 2) {
+			// 用户正常，进行token校验
+			int status = TokenUtils.checkToken(separate[0], separate[1], jedis);
+			if (status == 1) {
+				// 校验成功
+				UserMessage userMessage = new UserMessage();
+				// 获取最后登录ip
+				String remoteAddr = request.getRemoteAddr();
+				// 获取当前时间
+				Date date = DateUtils.createDate();
+				userMessage.setLastLoginIp(remoteAddr);
+				userMessage.setLastloginTime(date);
+				userMessage.setUserId(userId);
+				// 获取用户ip所在地区
+				if(remoteAddr.equals("0:0:0:0:0:0:0:1")) {
+					remoteAddr=null;
+				}
+				//判断用户类型
+				//不是内部用户则更新用户登录地址
+				if(!userMessageDao.isInnerUser(userId)) {
+					String positonByIp = GetLocationByIpUtil.GetPositonByIp(remoteAddr);
+					userMessage.setUserRegion(positonByIp);
+				}
+				
+				// 执行更新操作
+				// 校验成功，更新用户最后登录时间，最后登录ip
+				userMessageService.updateUserIpAndTime(userMessage);
+				map.put("message", "登录成功");
+				sendMap.put("code", TRUECODE);
+				sendMap.put("data", map);
+				//获取用户信息，查询是否注册环信成功
+				Map userInfo = userMessageService.getUserInfo(userId);
+				String valueOf = String.valueOf(userInfo.get("searchId"));
+				System.out.println("是否存在该环信用户"+HuanXinUtil.existByUserName(valueOf));
+				if(!HuanXinUtil.existByUserName(valueOf)) {
+					//重新注册环信
+					//注册环信用户
+					boolean userSave = HuanXinUtil.userSave(String.valueOf(valueOf),String.valueOf(valueOf));
+					//retry
+					System.out.println("第一次重新注册"+userSave);
+					if(!userSave) {
+						boolean userSave2 = HuanXinUtil.userSave(String.valueOf(valueOf),String.valueOf(valueOf));
+						System.out.println("第二次重新注册"+userSave2);
+					}
+				}
+				//插入用户活跃表
+				UserAlive userAlive = new UserAlive();
+				userAlive.setUserId(userId);
+				Date dates = DateUtils.createDateWithNoTime(new Date());
+				userAlive.setTime(dates);
+				if(!userMessageDao.existAliveUser(userAlive)) {
+					//插入用户活跃表
+					userMessageDao.insertAliveUser(userAlive);
+					if(userMessageDao.existUserCount(dates)){
+						userMessageDao.updateAliveUser(dates);
+					}else {
+						UserCount userCount = new UserCount();
+						userCount.setNewUser(0);
+						userCount.setDayAliveUser(1);
+						userCount.setTime(dates);
+						userMessageDao.insertUserCount(userCount);
+					}
+				}
+			} else if (status == 0) {
+				// 校验失败，用户异地登录
+				sendMap.put("code", ERRORCODE);
+				map.put("message", "用户异地登录");
+				sendMap.put("data", map);
+			} else {
+				// 用户token过期
+				sendMap.put("code", ERRORCODE);
+				map.put("message", "自动登录失效");
+				sendMap.put("data", map);
+			}
+		} else {
+			sendMap.put("code", ERRORCODE);
+			map.put("message", "账户封停");
+			sendMap.put("data", map);
+		}
+		RedisUtil.returnResource(jedis);
+		JSonUtil.writeToClient(sendMap, response);
+	}
+}
 
-```markdown
-# 一级标题
-## 二级标题
-### 三级标题
-#### 四级标题
-##### 五级标题
-###### 六级标题
 ```
-
-# 一级标题
-## 二级标题
-### 三级标题
-#### 四级标题
-##### 五级标题
-###### 六级标题
-
-
-
-## 字体
-
-```markdown
-*斜体文本*
-**粗体文本**
-***粗斜体文本***
-```
-
-*斜体文本*
-**粗体文本**
-***粗斜体文本***
-
-
-
-
-## 分隔线
-
-```markdown
-***
-```
-
-***
-
-
-
-## 删除线
-
-```markdown
-~~BAIDU.COM~~
-```
-~~BAIDU.COM~~
-
-
-
-## 下划线
-
-```html
-<u>带下划线的文本</u>
-```
-<u>带下划线的文本</u>
-
-
-
-## 脚注
-
-```markdown
-创建脚注格式类似这样 [^RUNOOB]。
-
-[^RUNOOB]: 菜鸟教程 -- 学的不仅是技术，更是梦想！！！
-```
-
-创建脚注格式类似这样 [^RUNOOB]。
-
-[^RUNOOB]: 菜鸟教程 -- 学的不仅是技术，更是梦想！！！
-
-
-
-## 列表
-### 无序列表
-```markdown
-- 第一项
-* 第二项
-+ 第三项
-```
-
-- 第一项
-* 第二项
-+ 第三项
-
-```markdown
-- 第2篇
-	* 第2.1章
-		+ 第2.1.1节
-```
-
-- 第2篇
-	* 第2.1章
-		+ 第2.1.1节
-
-### 有序列表
-```markdown
-1. 第一项
-2. 第二项
-3. 第三项
-```
-
-1. 第一项
-2. 第二项
-3. 第三项
-
-```markdown
-1. 第一项：
-    - 第一项嵌套的第一个元素
-    - 第一项嵌套的第二个元素
-2. 第二项：
-    - 第二项嵌套的第一个元素
-    - 第二项嵌套的第二个元素
-```
-1. 第一项：
-    - 第一项嵌套的第一个元素
-    - 第一项嵌套的第二个元素
-2. 第二项：
-    - 第二项嵌套的第一个元素
-    - 第二项嵌套的第二个元素
-
-
-
-##  区块
-
-```markdown
-> 区块引用
-> 菜鸟教程
-> 学的不仅是技术更是梦想
-```
-> 区块引用
-> 菜鸟教程
-> 学的不仅是技术更是梦想
-
-
-
-##  代码
-
-```markdown
-`printf()` 函数
-```
-`printf()` 函数
-
-~~~markdown
-```javascript
-$(document).ready(function () {
-    alert('RUNOOB');
-});
-```
-~~~
-```javascript
-$(document).ready(function () {
-    alert('RUNOOB');
-});
-```
-
-
-
-## 链接
-
-```markdown
-这是一个链接 [菜鸟教程](https://www.runoob.com)
-```
-
-这是一个链接 [菜鸟教程](https://www.runoob.com)
-
-```markdown
-<https://www.runoob.com>
-```
-<https://www.runoob.com>
-
-```markdown
-链接也可以用变量来代替，文档末尾附带变量地址：
-这个链接用 1 作为网址变量 [Google][1]
-这个链接用 runoob 作为网址变量 [Runoob][runoob]
-然后在文档的结尾为变量赋值（网址）
-
-  [1]: http://www.google.com/
-  [runoob]: http://www.runoob.com/
-```
-链接也可以用变量来代替，文档末尾附带变量地址：
-这个链接用 1 作为网址变量 [Google][1]
-这个链接用 runoob 作为网址变量 [Runoob][runoob]
-然后在文档的结尾为变量赋值（网址）
-
-[1]: http://www.google.com/
-[runoob]: http://www.runoob.com/
-
-
-
-## 图片
-
-```markdown
-![RUNOOB 图标](http://static.runoob.com/images/runoob-logo.png)
-
-![RUNOOB 图标](http://static.runoob.com/images/runoob-logo.png "RUNOOB")
-```
-![RUNOOB 图标](http://static.runoob.com/images/runoob-logo.png)
-
-![RUNOOB 图标](http://static.runoob.com/images/runoob-logo.png "RUNOOB")
-
-```markdown
-这个链接用 1 作为网址变量 [RUNOOB][1].
-然后在文档的结尾位变量赋值（网址）
-
-[1]: http://static.runoob.com/images/runoob-logo.png
-```
-
-这个链接用 1 作为网址变量 [RUNOOB][1].
-然后在文档的结尾位变量赋值（网址）
-
-[1]: http://static.runoob.com/images/runoob-logo.png
-
-
-
-## 表格
-
-```markdown
-| 左对齐 | 右对齐 | 居中对齐 |
-| :-----| ----: | :----: |
-| 单元格 | 单元格 | 单元格 |
-| 单元格 | 单元格 | 单元格 |
-```
-| 左对齐 | 右对齐 | 居中对齐 |
-| :-----| ----: | :----: |
-| 单元格 | 单元格 | 单元格 |
-| 单元格 | 单元格 | 单元格 |
-
-
-
-## 高级技巧
-
-```markdown
-使用 <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Del</kbd> 重启电脑
-```
-
-使用 <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Del</kbd> 重启电脑
-
-
-
-## 公式
-
-```markdown
-$$
-\mathbf{V}_1 \times \mathbf{V}_2 =  \begin{vmatrix} 
-\mathbf{i} & \mathbf{j} & \mathbf{k} \\
-\frac{\partial X}{\partial u} &  \frac{\partial Y}{\partial u} & 0 \\
-\frac{\partial X}{\partial v} &  \frac{\partial Y}{\partial v} & 0 \\
-\end{vmatrix}
-$$
-```
-$$
-\mathbf{V}_1 \times \mathbf{V}_2 =  \begin{vmatrix} 
-\mathbf{i} & \mathbf{j} & \mathbf{k} \\
-\frac{\partial X}{\partial u} &  \frac{\partial Y}{\partial u} & 0 \\
-\frac{\partial X}{\partial v} &  \frac{\partial Y}{\partial v} & 0 \\
-\end{vmatrix}
-$$
