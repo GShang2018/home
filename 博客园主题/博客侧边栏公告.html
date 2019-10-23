@@ -1,0 +1,84 @@
+<script type="text/javascript">
+	// 设置博客信息
+	var myprofile = [{
+		blogName: "GShang",
+		blogAvatar: "https://pic.cnblogs.com/avatar/1489774/20190708183140.png",
+		blogSign: "Stay hungry,Stay foolish.",
+		blogFollow: "follow('30807ee3-3273-4cff-72df-08d619358b99')",
+		QQ: "1220949046",
+		Github: "https://github.com/GShang2018",
+		WeChat: "https://img2018.cnblogs.com/blog/1489774/201910/1489774-20191015183429352-318054137.jpg"
+	}];
+
+	// 设置首页轮播
+	var mybanner = [{
+			url: "https://www.cnblogs.com/gshang/category/1555205.html",
+			img: "https://img2018.cnblogs.com/blog/1489774/201910/1489774-20191019152510780-1400941252.png",
+			title: "2019年研究生数学建模比赛经验分享"
+		},
+
+		{
+			url: "https://www.cnblogs.com/gshang/p/11107946.html",
+			img: "https://www.kanjiantu.com/images/2019/07/05/post4242f1ce89576c2f3.png",
+			title: "动画电影分享"
+		},
+
+		{
+			url: "https://www.cnblogs.com/gshang/p/11185613.html",
+			img: "https://img2018.cnblogs.com/blog/1489774/201909/1489774-20190923190114426-2061049622.png",
+			title: "VIP视频解析"
+		},
+
+		{
+			url: "https://www.cnblogs.com/gshang/p/11135154.html",
+			img: "https://www.kanjiantu.com/images/2019/07/05/post2b40b83305f79d463.png",
+			title: "常用网站集合"
+		},
+
+		{
+			url: "https://www.cnblogs.com/gshang/p/10746751.html",
+			img: "https://www.kanjiantu.com/images/2019/07/05/post169393a677253c679.png",
+			title: "实用工具分享"
+		}
+
+	];
+
+	// 设置导航栏扩展
+
+	var mynav = [{
+			id: "blog_nav_cnblogs",
+			url: "https://home.cnblogs.com",
+			title: "园子"
+		},
+		{
+			id: "blog_nav_maintain",
+			url: "https://www.cnblogs.com/gshang/p/11149316.html",
+			title: "维护"
+		},
+
+		{
+			id: "blog_nav_frieds",
+			url: "https://www.cnblogs.com/gshang/p/11149804.html",
+			title: "友链"
+		},
+
+	];
+
+	setFavio(myprofile); // 网页tab图像
+	setHeader(); //导航栏
+	extendNav(mynav); // 导航栏扩展
+	loadBanner(mybanner); //首页轮播
+	changePublishinfo(); //博文发布信息位置
+	setPostSideBar(); //侧边栏目录
+	loadProfile(myprofile); // 公告栏个人信息
+	setSignautre(myprofile); //博文签名
+	loadMobileContent(); //移动端目录功能栏
+	commentIcon(); //评论区头像
+	blankTarget(); //文章链接新窗口打开
+	copyCode(); //代码块复制
+	//setMobileHeader(); //移动端导航栏
+	tableScorll(); //表格滚动
+	mymd(); //自定义语法
+	runCode(); //文章内部运行代码
+	highlightMATLABCode(); //matlab自定义语法高亮
+</script>
