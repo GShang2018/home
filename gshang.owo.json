@@ -1,0 +1,24 @@
+{
+	"<img src='http://i0.hdslb.com/bfs/emote/bf3ea8541e1bd469255a907f7b60015ad9abf1ce.png@56w_56h.webp' ></img>": {
+		"type": "image",
+		"container": [{
+				"icon": "<img src='http://i0.hdslb.com/bfs/emote/dc709fac0d361370bcf0d36d32adb97df7c95824.png@56w_56h.webp' ></img>",
+				"text": "2020",
+				"raw": "[2020]",
+				"write": "[img]http://i0.hdslb.com/bfs/emote/dc709fac0d361370bcf0d36d32adb97df7c95824.png@56w_56h.webp[/img]"
+			},
+			{
+				"icon": "<img src='http://i0.hdslb.com/bfs/emote/dc709fac0d361370bcf0d36d32adb97df7c95824.png@56w_56h.webp' ></img>",
+				"text": "2020",
+				"raw": "[2020]",
+				"write": "[img]http://i0.hdslb.com/bfs/emote/dc709fac0d361370bcf0d36d32adb97df7c95824.png@56w_56h.webp[/img]"
+			},
+			{
+				"icon": "<img src='http://i0.hdslb.com/bfs/emote/dc709fac0d361370bcf0d36d32adb97df7c95824.png@56w_56h.webp' ></img>",
+				"text": "2020",
+				"raw": "[2020]",
+				"write": "[img]http://i0.hdslb.com/bfs/emote/dc709fac0d361370bcf0d36d32adb97df7c95824.png@56w_56h.webp[/img]"
+			}
+		]
+	}
+}
