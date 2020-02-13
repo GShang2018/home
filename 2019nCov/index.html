@@ -260,25 +260,6 @@ var ctrl_sca = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});
 
 map.addControl(ctrl_sca);
 
-// 添加带有定位的导航控件
-
-var navigationControl = new BMap.NavigationControl({
-
-  // 靠左上角位置
-
-  anchor: BMAP_ANCHOR_TOP_LEFT,
-
-  // LARGE类型
-
-  type: BMAP_NAVIGATION_CONTROL_LARGE,
-
-  // 启用显示定位
-
-  enableGeolocation: true
-
-});
-
-map.addControl(navigationControl);
 
 // 添加定位控件
 
