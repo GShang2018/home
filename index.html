@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<title>深度导航</title>
+		<script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+		<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="index.css" />
+	</head>
+	<body>
+		<div id="app">
+			<div id="search">
+				<div id="logo">
+					深度导航
+				</div>
+				<div id="serch-area">
+					<div id="ipt">
+						<div id="search-logo">
+							<img src="https://ico.hnysnet.com/get.php?url=https://www.baidu.com/">
+						</div>
+						<ul id="search-list">
+							<li v-for="search in search">
+								<div class="search-engine" :data-url="search.url" :data-info="search.info"><img :src="search.favicon">{{search.name}}</div>
+							</li>
+						</ul>
+						<input type="" name="" id="search-input" value="" placeholder="百度一下" />
+					</div>
+					<div id="search-btn">搜索</div>
+				</div>
+			</div>
+			<div id="sidebar">
+			<div class="sidebar-toggle"></div>
+			<div id="sidebar-content">
+				<div class="series" v-for=" series in series">
+					<h2>{{series.series_name}}</h2>
+					<div class="item-container">
+						<div class="series-item" v-for=" series_content in series.series_content">
+							<a :href="series_content.url" target="_blank" :title="series_content.info">
+								<img :src="series_content.favicon">
+								<p>{{series_content.name}}</p>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+		<script src="index.js" type="text/javascript" charset="utf-8"></script>
+		<div id="footer"> Copyright © 2020 <a href="https://cnblogs.com/gshang" target="_blank">GShang</a> </div>
+	</body>
+</html>
